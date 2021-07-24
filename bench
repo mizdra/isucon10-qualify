@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# usage: envchain mackerel ./bench
+
 set -ex
 
 ROOT=$(cd $(dirname $0);pwd)
@@ -11,7 +13,7 @@ ssh -t isu01 "sudo nginx -s reload"
 ssh -t isu01 "sudo truncate --size 0 /var/log/mysql/mysql-slow.log"
 
 echo "start benchmark"
-ssh -t bench "cd /home/isucon/isuumo/bench; /home/isucon/isuumo/bench/bench --target-url http://18.183.153.63"
+ssh -t bench "export MACKEREL_APIKEY=$MACKEREL_APIKEY; cd /home/isucon/isuumo/bench; echo \"score.mizdra \$(./bench --target-url http://18.183.153.63 | jq '.score') \$(date +%s)\" | mkr throw --service isucon10-qualify"
 
 echo "fetch logs"
 rsync -a --rsync-path="sudo rsync" isu01:/var/log/nginx/access.log $ROOT/log/access.log
