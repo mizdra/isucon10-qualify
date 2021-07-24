@@ -10,7 +10,8 @@ echo "clear logs"
 ssh -t isu01 "sudo rm -rf /var/log/nginx/access.log"
 ssh -t isu01 "sudo rm -rf /var/log/nginx/error.log"
 ssh -t isu01 "sudo nginx -s reload"
-ssh -t isu01 "sudo truncate --size 0 /var/log/mysql/mysql-slow.log"
+# ref: https://dev.mysql.com/doc/refman/8.0/ja/log-file-maintenance.html
+ssh -t isu01 "sudo mysqladmin flush-logs"
 
 echo "start benchmark"
 ssh -t bench "export MACKEREL_APIKEY=$MACKEREL_APIKEY; cd /home/isucon/isuumo/bench; echo \"score.mizdra \$(./bench --target-url http://18.183.153.63 | jq '.score') \$(date +%s)\" | mkr throw --service isucon10-qualify"
