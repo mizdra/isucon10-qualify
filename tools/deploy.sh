@@ -24,5 +24,7 @@ for server in isu01; do
 
     ssh -t $server "sudo systemctl start isuumo.go.service"
     ssh -t $server "sudo systemctl start nginx.service"
+    # ref: https://abyssluke.hatenablog.com/entry/2015/12/11/203707
+    ssh -t $server "sudo nginx -s reload"
     ssh -t $server "sudo systemctl start mysql.service"
 done
