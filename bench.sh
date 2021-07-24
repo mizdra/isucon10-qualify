@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -ex
 
-ROOT=$(cd $(dirname $0)/..;pwd)
+ROOT=$(cd $(dirname $0);pwd)
 
 echo "clear logs"
 # https://serverfault.com/a/980572
