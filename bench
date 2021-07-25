@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# usage: envchain mackerel ./bench
+
 set -ex
 
 ROOT=$(cd $(dirname $0);pwd)
@@ -8,10 +10,13 @@ echo "clear logs"
 ssh -t isu01 "sudo rm -rf /var/log/nginx/access.log"
 ssh -t isu01 "sudo rm -rf /var/log/nginx/error.log"
 ssh -t isu01 "sudo nginx -s reload"
+# ref: https://dev.mysql.com/doc/refman/8.0/ja/log-file-maintenance.html
+ssh -t isu01 "sudo mysqladmin flush-logs"
 
 echo "start benchmark"
-ssh -t bench "cd /home/isucon/isuumo/bench; /home/isucon/isuumo/bench/bench --target-url http://18.183.153.63"
+ssh -t bench "export MACKEREL_APIKEY=$MACKEREL_APIKEY; cd /home/isucon/isuumo/bench; echo \"score.mizdra \$(./bench --target-url http://18.183.153.63 | jq '.score') \$(date +%s)\" | mkr throw --service isucon10-qualify"
 
 echo "fetch logs"
 rsync -a --rsync-path="sudo rsync" isu01:/var/log/nginx/access.log $ROOT/log/access.log
 rsync -a --rsync-path="sudo rsync" isu01:/var/log/nginx/error.log $ROOT/log/error.log
+rsync -a --rsync-path="sudo rsync" isu01:/var/log/mysql/mysql-slow.log $ROOT/log/mysql-slow.log
