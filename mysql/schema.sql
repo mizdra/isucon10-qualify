@@ -36,7 +36,10 @@ CREATE TABLE `chair` (
   `kind` varchar(64) NOT NULL,
   `popularity` int(11) NOT NULL,
   `stock` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `price` (`price`),
+  KEY `stock` (`stock`),
+  KEY `popularity` (`popularity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -60,7 +63,9 @@ CREATE TABLE `estate` (
   `door_width` int(11) NOT NULL,
   `features` varchar(64) NOT NULL,
   `popularity` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `rent_id` (`rent`, `id`),
+  KEY `rent` (`rent`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
