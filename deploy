@@ -16,9 +16,10 @@ for server in isu01; do
     ssh -t $server "sudo systemctl stop mysql.service"
 
     rsync -a --rsync-path="sudo -u isucon rsync" $ROOT/go/isuumo $server:/home/isucon/isuumo/webapp/go/isuumo
+    rsync -a --rsync-path="sudo -u isucon rsync" $ROOT/env.sh $server:/home/isucon/env.sh
+    rsync -a --rsync-path="sudo -u isucon rsync" $ROOT/mysql/db/ $server:/home/isucon/isuumo/webapp/mysql/db/
     rsync -a --rsync-path="sudo rsync" $ROOT/nginx/sites-available/ $server:/etc/nginx/sites-available/
     rsync -a --rsync-path="sudo rsync" $ROOT/nginx/nginx.conf $server:/etc/nginx/nginx.conf
-    rsync -a --rsync-path="sudo -u isucon rsync" $ROOT/env.sh $server:/home/isucon/env.sh
     rsync -a --rsync-path="sudo rsync" $ROOT/mysql/conf.d/ $server:/etc/mysql/conf.d/
     rsync -a --rsync-path="sudo rsync" $ROOT/mysql/mysql.conf.d/ $server:/etc/mysql/mysql.conf.d/
 
