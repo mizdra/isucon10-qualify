@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# usage: ./analyze
+set -ex
+
+ROOT=$(cd $(dirname $0);pwd)
+
+echo "analyze logs"
+cat log/access.log | alp ltsv -r --sort=sum -m "/api/estate/req_doc/\d+,/api/recommended_estate/\d+,/api/estate/\d+,/api/chair/\d+,/api/chair/buy/\d+" > log/alp.log
+pt-query-digest log/mysql-slow.log > log/pt-query-digest.log
