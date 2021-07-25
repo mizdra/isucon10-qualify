@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -ex
+
+ROOT=$(cd $(dirname $0);pwd)
+
+echo "push schema file"
+rsync -a $ROOT/mysql/schema.sql isu01:/tmp/schema.sql
+
+echo "start migration"
+ssh -t isu01 "mysql -uisucon -pisucon isuumo < /tmp/schema.sql"
