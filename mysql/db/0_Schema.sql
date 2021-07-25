@@ -36,7 +36,7 @@ CREATE TABLE isuumo.chair
     kind        VARCHAR(64)     NOT NULL,
     popularity  INTEGER         NOT NULL,
     stock       INTEGER         NOT NULL,
-    KEY `price` (`price`),
-    KEY `stock` (`stock`),
+    KEY `price_popularity` (`price`, `popularity`),
+    KEY `stock_price_id` (`stock`, `price`, `id`),
     KEY `popularity` (`popularity`)
 );
