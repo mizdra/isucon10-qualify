@@ -64,8 +64,7 @@ CREATE TABLE `estate` (
   `features` varchar(64) NOT NULL,
   `popularity` int(11) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `rent_id` (`rent`, `id`),
-  KEY `rent` (`rent`)
+  KEY `rent_id` (`rent`, `id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
