@@ -59,18 +59,19 @@ type ChairListResponse struct {
 
 //Estate 物件
 type Estate struct {
-	ID          int64   `db:"id" json:"id"`
-	Thumbnail   string  `db:"thumbnail" json:"thumbnail"`
-	Name        string  `db:"name" json:"name"`
-	Description string  `db:"description" json:"description"`
-	Latitude    float64 `db:"latitude" json:"latitude"`
-	Longitude   float64 `db:"longitude" json:"longitude"`
-	Address     string  `db:"address" json:"address"`
-	Rent        int64   `db:"rent" json:"rent"`
-	DoorHeight  int64   `db:"door_height" json:"doorHeight"`
-	DoorWidth   int64   `db:"door_width" json:"doorWidth"`
-	Features    string  `db:"features" json:"features"`
-	Popularity  int64   `db:"popularity" json:"-"`
+	ID                 int64   `db:"id" json:"id"`
+	Thumbnail          string  `db:"thumbnail" json:"thumbnail"`
+	Name               string  `db:"name" json:"name"`
+	Description        string  `db:"description" json:"description"`
+	Latitude           float64 `db:"latitude" json:"latitude"`
+	Longitude          float64 `db:"longitude" json:"longitude"`
+	Address            string  `db:"address" json:"address"`
+	Rent               int64   `db:"rent" json:"rent"`
+	DoorHeight         int64   `db:"door_height" json:"doorHeight"`
+	DoorWidth          int64   `db:"door_width" json:"doorWidth"`
+	Features           string  `db:"features" json:"features"`
+	Popularity         int64   `db:"popularity" json:"-"`
+	ReversedPopularity int64   `db:"reversed_popularity" json:"reversedPopularity"`
 }
 
 //EstateSearchResponse estate/searchへのレスポンスの形式
@@ -773,7 +774,7 @@ func searchEstates(c echo.Context) error {
 	searchQuery := "SELECT * FROM estate WHERE "
 	countQuery := "SELECT COUNT(*) FROM estate WHERE "
 	searchCondition := strings.Join(conditions, " AND ")
-	limitOffset := " ORDER BY popularity DESC, id ASC LIMIT ? OFFSET ?"
+	limitOffset := " ORDER BY reversed_popularity ASC, id ASC LIMIT ? OFFSET ?"
 
 	var res EstateSearchResponse
 	err = db.Get(&res.Count, countQuery+searchCondition, params...)
