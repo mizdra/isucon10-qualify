@@ -40,6 +40,11 @@ CREATE TABLE isuumo.chair
     kind        VARCHAR(64)     NOT NULL,
     popularity  INTEGER         NOT NULL,
     stock       INTEGER         NOT NULL,
+
+    reversed_popularity  INTEGER    AS (-popularity) STORED NOT NULL,
+
+    KEY `reversed_popularity_id` (`reversed_popularity`, `id`),
+
     KEY `price` (`price`),
     KEY `stock` (`stock`),
     KEY `popularity` (`popularity`)
