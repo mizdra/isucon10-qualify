@@ -22,7 +22,8 @@ CREATE TABLE isuumo.estate
 
     KEY `reversed_popularity_id` (`reversed_popularity`, `id`),
     KEY rent_door_width (rent, door_width),
-    KEY rent_door_height (rent, door_height)
+    KEY rent_door_height (rent, door_height),
+    UNIQUE KEY rent_id (rent, id)
 );
 
 CREATE TABLE isuumo.chair
