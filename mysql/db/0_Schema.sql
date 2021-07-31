@@ -48,5 +48,6 @@ CREATE TABLE isuumo.chair
 
     KEY price_stock (price, stock),
     KEY height_stock (height, stock),
-    KEY kind_stock (kind, stock)
+    KEY kind_stock (kind, stock),
+    UNIQUE KEY price_id (price, id)
 );
