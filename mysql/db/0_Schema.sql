@@ -21,8 +21,8 @@ CREATE TABLE isuumo.estate
     reversed_popularity  INTEGER    AS (-popularity) STORED NOT NULL,
 
     KEY `reversed_popularity_id` (`reversed_popularity`, `id`),
-
-    KEY `rent_id` (`rent`, `id`)
+    KEY rent_door_width (rent, door_width),
+    KEY rent_door_height (rent, door_height)
 );
 
 CREATE TABLE isuumo.chair
@@ -45,7 +45,7 @@ CREATE TABLE isuumo.chair
 
     KEY `reversed_popularity_id` (`reversed_popularity`, `id`),
 
-    KEY `price` (`price`),
-    KEY `stock` (`stock`),
-    KEY `popularity` (`popularity`)
+    KEY price_stock (price, stock),
+    KEY height_stock (height, stock),
+    KEY kind_stock (kind, stock)
 );
